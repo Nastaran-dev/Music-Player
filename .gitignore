@@ -1,0 +1,22 @@
+# dependencies
+node_modules
+
+# build output
+.next
+out
+storybook-static
+*.tsbuildinfo
+next-env.d.ts
+
+# tests
+coverage
+playwright-report
+test-results
+
+# env / misc
+.env*
+!.env.example
+.DS_Store
+*.log
+debug-storybook.log
+.vercel

@@ -1,0 +1,34 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="Introduction" />
+
+# VYBE Design System
+
+Living documentation for the VYBE music streaming UI.
+
+## How the system is organized
+
+| Layer | Where | What lives there |
+| --- | --- | --- |
+| Tokens | `src/styles/tokens.css` | Colors, elevation, motion, z-index (light + dark) |
+| Tailwind mapping | `src/styles/theme.css` | Fonts, type scale, radius, breakpoints, utilities |
+| Motion (JS) | `src/constants/motion.ts` | Same motion tokens for the Motion library |
+| Primitives | `src/components/ui` | Button, IconButton, Badge, Avatar, Tooltip... |
+
+## Sidebar structure
+
+- **Foundations**: colors, typography, surfaces
+- **Components**: generic UI building blocks
+- **Music Components**: track, album, artist, player (added in later phases)
+- **Layout**, **Patterns**, **Pages**: added as the app grows
+
+## Themes
+
+Use the **Theme** switcher in the Storybook toolbar to preview Dark (default) and Light.
+
+## Accessibility rules we follow
+
+- Icon-only controls must use `IconButton` with a `label` (accessible name + tooltip).
+- Toggle controls set `aria-pressed`.
+- Focus rings are always visible. Motion respects `prefers-reduced-motion`.
+- Check the **Accessibility** panel on every story.

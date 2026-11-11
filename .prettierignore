@@ -1,0 +1,7 @@
+node_modules
+.next
+out
+storybook-static
+coverage
+package-lock.json
+public/audio
