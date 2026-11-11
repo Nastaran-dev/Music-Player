@@ -35,7 +35,7 @@ export const genres: readonly Genre[] = [
     id: "indie",
     name: "Indie",
     description: "Home-grown songs with character.",
-    image:"/songs/indie.jpg"
+    image:"/VYRA/Covers/indie.jpg"
   },
   {
     id: "rnb",
