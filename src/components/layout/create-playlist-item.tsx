@@ -13,33 +13,37 @@ import {
   type NavLayout,
 } from "./navigation-item";
 
-export function CreatePlaylistItem({
+export function CreatePlaylistButton({
   layout,
-  onCreated,
+  onClick,
 }: {
   layout: NavLayout;
-  onCreated?: () => void;
+  onClick: () => void;
 }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={cn(navItemClasses(layout))}
+    >
+      <Plus className="size-5 shrink-0" aria-hidden="true" />
+      <span className={navLabelClasses(layout)}>Create Playlist</span>
+    </button>
+  );
+}
+
+
+export function CreatePlaylistItem({ layout }: { layout: NavLayout }) {
   const router = useRouter();
   const [open, setOpen] = useState(false);
 
   return (
     <>
-      <button
-        type="button"
-        onClick={() => setOpen(true)}
-        className={cn(navItemClasses(layout))}
-      >
-        <Plus className="size-5 shrink-0" aria-hidden="true" />
-        <span className={navLabelClasses(layout)}>Create Playlist</span>
-      </button>
+      <CreatePlaylistButton layout={layout} onClick={() => setOpen(true)} />
       <LazyPlaylistFormDialog
         open={open}
         onOpenChange={setOpen}
-        onSaved={(id) => {
-          router.push(`/playlists/${id}`);
-          onCreated?.();
-        }}
+        onSaved={(id) => router.push(`/playlists/${id}`)}
       />
     </>
   );

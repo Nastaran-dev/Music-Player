@@ -55,7 +55,7 @@ function applyFilterAndSort<T>(
   const filtered = needle ? items.filter((item) => getName(item).toLowerCase().includes(needle)) : [...items];
   if (sort === "name-asc") filtered.sort((a, b) => getName(a).localeCompare(getName(b)));
   if (sort === "name-desc") filtered.sort((a, b) => getName(b).localeCompare(getName(a)));
-  return filtered; 
+  return filtered; // "recent" keeps the stored order (newest first)
 }
 
 function LibraryEmpty({ icon, title, description }: { icon: LucideIcon; title: string; description: string }) {
@@ -120,6 +120,7 @@ function Collection({
   );
 }
 
+/** Saved playlists, albums, artists and liked songs with filter, sort and grid/list views. */
 export function LibraryView() {
   const favoritesReady = usePersistHydrated(useFavoritesStore);
   const playlistsReady = usePersistHydrated(usePlaylistsStore);
@@ -191,7 +192,7 @@ export function LibraryView() {
   if (!favoritesReady || !playlistsReady) {
     return (
       <div aria-busy="true" className="flex flex-col gap-4">
-        <Skeleton className="h-10 w-80 rounded-full" />
+        <Skeleton className="h-10 w-full max-w-80 rounded-full" />
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
           {[0, 1, 2, 3].map((i) => (
             <Skeleton key={i} className="aspect-square rounded-xl" />
@@ -210,15 +211,23 @@ export function LibraryView() {
   return (
     <Tabs value={tab} onValueChange={(value) => setTab(value as TabId)}>
       <TabsList aria-label="Library sections">
-        <TabsTrigger value="playlists">Playlists ({playlistItems.length})</TabsTrigger>
-        <TabsTrigger value="albums">Albums ({albumItems.length})</TabsTrigger>
-        <TabsTrigger value="artists">Artists ({artistItems.length})</TabsTrigger>
-        <TabsTrigger value="liked">Liked songs ({likedIds.length})</TabsTrigger>
+        <TabsTrigger value="playlists">
+          Playlists <span className="text-muted-foreground">{playlistItems.length}</span>
+        </TabsTrigger>
+        <TabsTrigger value="albums">
+          Albums <span className="text-muted-foreground">{albumItems.length}</span>
+        </TabsTrigger>
+        <TabsTrigger value="artists">
+          Artists <span className="text-muted-foreground">{artistItems.length}</span>
+        </TabsTrigger>
+        <TabsTrigger value="liked">
+          Liked <span className="text-muted-foreground">{likedIds.length}</span>
+        </TabsTrigger>
       </TabsList>
 
       <h2 className="sr-only">Library items</h2>
-      <div className="mt-4 flex flex-wrap items-center gap-3">
-        <div className="min-w-48 flex-1 sm:max-w-xs">
+      <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center">
+        <div className="w-full sm:max-w-xs sm:flex-1">
           <Input
             type="search"
             aria-label="Filter this section"
@@ -228,30 +237,46 @@ export function LibraryView() {
             autoComplete="off"
           />
         </div>
-        <label className="flex items-center gap-2 text-small text-muted-foreground">
-          Sort
-          <select
-            value={sort}
-            onChange={(event) => setSort(event.target.value as SortId)}
-            className="h-10 rounded-full border border-input bg-surface-2 px-3 text-small text-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
-          >
-            {(Object.keys(SORT_LABELS) as SortId[]).map((id) => (
-              <option key={id} value={id}>
-                {SORT_LABELS[id]}
-              </option>
-            ))}
-          </select>
-        </label>
-        {tab !== "liked" ? (
-          <div role="group" aria-label="Layout" className="ml-auto flex items-center gap-1">
-            <IconButton label="Grid view" size="sm" pressed={view === "grid"} variant={view === "grid" ? "secondary" : "ghost"} onClick={() => setView("grid")}>
-              <LayoutGrid aria-hidden="true" />
-            </IconButton>
-            <IconButton label="List view" size="sm" pressed={view === "list"} variant={view === "list" ? "secondary" : "ghost"} onClick={() => setView("list")}>
-              <List aria-hidden="true" />
-            </IconButton>
-          </div>
-        ) : null}
+
+        <div className="flex min-w-0 items-center justify-between gap-3 sm:ml-auto">
+          <label className="flex min-w-0 items-center gap-2 text-small text-muted-foreground">
+            <span>Sort</span>
+            <select
+              value={sort}
+              onChange={(event) => setSort(event.target.value as SortId)}
+              className="h-10 min-w-0 rounded-full border border-input bg-surface-2 px-3 text-base text-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none md:text-small"
+            >
+              {(Object.keys(SORT_LABELS) as SortId[]).map((id) => (
+                <option key={id} value={id}>
+                  {SORT_LABELS[id]}
+                </option>
+              ))}
+            </select>
+          </label>
+
+          {tab !== "liked" ? (
+            <div role="group" aria-label="Layout" className="flex shrink-0 items-center gap-1">
+              <IconButton
+                label="Grid view"
+                size="sm"
+                pressed={view === "grid"}
+                variant={view === "grid" ? "secondary" : "ghost"}
+                onClick={() => setView("grid")}
+              >
+                <LayoutGrid aria-hidden="true" />
+              </IconButton>
+              <IconButton
+                label="List view"
+                size="sm"
+                pressed={view === "list"}
+                variant={view === "list" ? "secondary" : "ghost"}
+                onClick={() => setView("list")}
+              >
+                <List aria-hidden="true" />
+              </IconButton>
+            </div>
+          ) : null}
+        </div>
       </div>
 
       <TabsContent value="playlists">

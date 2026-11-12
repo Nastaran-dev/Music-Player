@@ -2,7 +2,6 @@
 
 import { useState, type FormEvent } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { Keyboard, Search } from "lucide-react";
 
 import { BrandLogo } from "@/components/shared/brand-logo";
@@ -11,9 +10,12 @@ import { IconButton } from "@/components/ui/icon-button";
 import { Input } from "@/components/ui/input";
 import { useSearchHistoryStore } from "@/stores/search-history-store";
 import { useUiStore } from "@/stores/ui-store";
+import { usePathname, useRouter } from "next/navigation";
+import { cn } from "@/lib/utils";
 
 export function Header() {
   const router = useRouter();
+  const pathname = usePathname();
   const [query, setQuery] = useState("");
   const addRecent = useSearchHistoryStore((s) => s.add);
   const openShortcuts = useUiStore((s) => s.setShortcutsOpen);
@@ -22,7 +24,9 @@ export function Header() {
     event.preventDefault();
     const trimmed = query.trim();
     addRecent(trimmed);
-    router.push(trimmed ? `/search?q=${encodeURIComponent(trimmed)}` : "/search");
+    router.push(
+      trimmed ? `/search?q=${encodeURIComponent(trimmed)}` : "/search",
+    );
   }
 
   return (
@@ -35,7 +39,15 @@ export function Header() {
         <BrandLogo showWordmark={false} />
       </Link>
 
-      <form role="search" onSubmit={handleSubmit} className="relative max-w-md flex-1">
+      <form
+        role="search"
+        onSubmit={handleSubmit}
+        className={cn(
+          "relative max-w-md flex-1",
+
+          pathname === "/search" && "hidden md:block",
+        )}
+      >
         <label htmlFor="global-search" className="sr-only">
           Search songs, artists, albums and playlists
         </label>
@@ -57,7 +69,10 @@ export function Header() {
       </form>
 
       <div className="ml-auto hidden items-center gap-2 md:flex">
-        <IconButton label="Keyboard shortcuts" onClick={() => openShortcuts(true)}>
+        <IconButton
+          label="Keyboard shortcuts"
+          onClick={() => openShortcuts(true)}
+        >
           <Keyboard aria-hidden="true" />
         </IconButton>
         <ThemeToggle />

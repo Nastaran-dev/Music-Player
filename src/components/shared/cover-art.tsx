@@ -32,7 +32,6 @@ export function CoverArt({
         <Image
           urlEndpoint={process.env.NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT!}
           src={src}
-
           alt={alt}
           fill
           sizes={sizes}
