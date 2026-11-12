@@ -1,103 +1,198 @@
-<<<<<<< HEAD
-# VYBE
+🎧 MELO — Feel Every Beat.
 
-A premium music streaming web app (frontend only, mock data) built with Next.js, React, TypeScript, Tailwind CSS v4 and Storybook.
+<p align="center">
+  A premium music streaming experience built for music lovers.
+  <br />
+  Discover music, build your own playlists, and enjoy every moment.
+</p>
 
-> **Status: Phases 1–6 complete.** Phase 7 is tests (Vitest, Playwright) and final delivery checks.
+<p align="center">
+  <a href="https://melody-flow-psi.vercel.app/">
+    <img src="https://img.shields.io/badge/✦_LIVE_DEMO-Explore_VYBE-9333EA?style=for-the-badge&logoColor=white" alt="Live Demo" />
+  </a>
+  &nbsp;
+</p>
 
-## Requirements
+<p align="center">
+  <img src="https://img.shields.io/badge/Next.js-16-black?style=flat-square&logo=next.js" alt="Next.js" />
+  <img src="https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react" alt="React" />
+  <img src="https://img.shields.io/badge/TypeScript-Strict-3178C6?style=flat-square&logo=typescript" alt="TypeScript" />
+  <img src="https://img.shields.io/badge/Tailwind_CSS-v4-06B6D4?style=flat-square&logo=tailwindcss" alt="Tailwind CSS" />
+  <img src="https://img.shields.io/badge/Storybook-Documented-FF4785?style=flat-square&logo=storybook" alt="Storybook" />
+</p>
 
-- Node.js 20.9+ (22 recommended, see `.nvmrc`)
-- npm
+---
 
-## Getting started
+✨ About VYBE
 
-```bash
-git init            # needed once, so Husky can install its git hooks
-npm install         # creates package-lock.json on first run
-npm run dev         # http://localhost:3000
-```
+MELO Is a frontend-only music streaming web application designed to deliver a polished, immersive, and responsive listening experience.
 
-## Commands
+Inspired by modern music platforms, MELO combines a carefully crafted design system with a feature-rich music player, interactive library, playlist management, and seamless navigation.
 
-| Command | What it does |
+Built with clean architecture, reusable components, accessibility in mind, and a strong focus on user experience.
+
+> No backend or authentication required — all user data is stored locally in the browser, with mock catalog data powering the experience.
+
+ 🖥️ Preview
+
+<img width="1919" height="867" alt="Screenshot 2026-11-12 130150" src="https://github.com/user-attachments/assets/94e4eb86-d856-46ff-b4c8-c1a6c8ad8f20" />
+
+
+
+ 🚀 Features
+
+ 🎵 Music Experience
+- Global audio engine with play, pause, seek, and volume controls.
+- Shuffle and repeat playback modes.
+- Next and previous track navigation.
+- Playback queue with add, remove, reorder, and clear actions.
+- Media Session API integration for hardware media keys and lock-screen controls.
+- Expanded Now Playing experience with large artwork and dedicated controls.
+
+ 🔎 Discover & Explore
+- Smart search with suggestions and search history.
+- Search results organized by categories.
+- Genre-based music browsing.
+- Dedicated album, artist, and playlist pages.
+
+ 📚 Personal Music Library
+- Liked songs and saved albums.
+- Followed artists.
+- Recently played tracks, albums, and playlists.
+- Library filtering, sorting, and grid/list views.
+- Persistent browser storage using localStorage.
+
+ 🎼 Playlist Management
+- Create and delete custom playlists.
+- Edit playlist details and covers.
+- Add and remove tracks.
+- Reorder songs using accessible menu actions.
+
+🎤 Lyrics & Now Playing
+- Dedicated lyrics and queue tabs.
+- Timed lyrics for selected demo tracks.
+- Full-screen expanded player experience on mobile.
+- Graceful unavailable states for tracks without audio or lyrics.
+
+ ⌨️ Keyboard Shortcuts
+
+| Shortcut | Action |
 | --- | --- |
-| `npm run dev` | Start the Next.js dev server |
-| `npm run build` | Production build |
-| `npm run start` | Serve the production build |
-| `npm run lint` / `lint:fix` | ESLint |
-| `npm run typecheck` | TypeScript (strict) check |
-| `npm run format` / `format:check` | Prettier |
-| `npm run storybook` | Storybook at http://localhost:6006 |
-| `npm run build-storybook` | Static Storybook build |
+| `Space` | Play / Pause |
+| `←` `→` | Seek backward / forward |
+| `↑` `↓` | Volume up / down |
+| `N` | Next track |
+| `P` | Previous track |
+| `M` | Mute / Unmute |
+| `?` | Show shortcuts |
 
-## Playing music
+ 🎨 Design & Experience
 
-The catalog is fictional (40 tracks, no audio included). A track plays only when you link an audio file to it:
+- Premium dark-first interface with light theme support.
+- Custom design tokens and consistent visual language.
+- Sora and Inter typography.
+- Smooth transitions and micro-interactions.
+- Responsive layouts for desktop, tablet, and mobile.
+- Reduced-motion support.
+- Accessibility-focused interaction patterns.
+- Storybook documentation for reusable UI components.
 
-1. Find the track ID in [`docs/track-ids.md`](docs/track-ids.md).
-2. Put the file in `public/audio/`.
-3. Add one line in `src/mocks/audio-sources.ts`.
-4. Open Home or Discover and click the track.
+ 🛠️ Tech Stack
 
-Tracks without a file show a **No audio** badge and report "unavailable" when clicked.
+| Technology | Purpose |
+| --- | --- |
+| Next.js | Application framework |
+| React | UI development |
+| TypeScript | Type safety |
+| Tailwind CSS v4 | Styling |
+| Storybook | Component documentation |
+| ESLint | Code quality |
+| Prettier | Code formatting |
+| Husky | Git hooks |
+| Vitest | Unit and component testing |
+| Playwright | End-to-end testing |
 
-## What works today
 
-- Playback with a single global audio engine (play, pause, seek, volume, shuffle, repeat, next/previous)
-- Search with suggestions, history, result categories and genre browsing
-- Library (playlists, saved albums, followed artists, liked songs) with filter, sort and grid/list views
-- Likes, saved albums and followed artists (saved in your browser)
-- Your own playlists: create, edit, change cover, add and remove songs, reorder (track menu: Move up / Move down), delete
-- Queue panel: play next, add to queue, remove, reorder, clear
-- Album, artist and playlist pages
-- Expanded "now playing" view (click the song in the player bar): large artwork, controls, Lyrics and Queue tabs; full-screen on phones
-- Lyrics for a few demo tracks (`track-001`, `track-019` timed; `track-007` plain; the rest show "unavailable")
-- Recently played (songs, albums, playlists and history), saved locally
-- Keyboard shortcuts (press `?` for the list): Space, ← → (seek), ↑ ↓ (volume), N, P, M
+ 📜 Available Scripts
 
-All user data lives in `localStorage` (no backend). Reordering uses menu actions instead of drag and drop, which keeps it fully keyboard accessible.
+| Command | Description |
+| --- | --- |
+| `npm run dev` | Start development server |
+| `npm run build` | Create production build |
+| `npm run start` | Run production server |
+| `npm run lint` | Run ESLint |
+| `npm run lint:fix` | Automatically fix lint issues |
+| `npm run typecheck` | Run strict TypeScript checks |
+| `npm run format` | Format source files |
+| `npm run format:check` | Check formatting |
+| `npm run storybook` | Launch Storybook |
+| `npm run build-storybook` | Build Storybook |
+| `npm run test` | Run Vitest tests |
 
-## Polish (Phase 6)
+ 🎧 Adding Your Own Music
 
-- Motion: page entrance, play/pause icon swap, expanded player slide-up, artwork transitions, card hover zoom (all respect reduced motion)
-- Error handling: page-level error boundary, in-app "not found", toast when a song cannot be played, storage that never throws
-- Media keys and lock-screen controls through the Media Session API
-- Code splitting for the expanded player and the playlist form
-- Contrast audit of every token pair and accessibility notes: [`docs/accessibility-and-performance.md`](docs/accessibility-and-performance.md)
+MELO ships with a fictional catalog of 40 tracks and does not include audio files.
 
-## Adding your own music
+Tracks without a registered audio source are automatically marked as unavailable.
 
-1. Copy audio files into **`public/audio/`**.
-2. Link them in **`src/mocks/audio-sources.ts`** (the only file you edit):
+Important: Only use music that you own or have permission to distribute, including royalty-free or public-domain audio.
 
-```ts
-export const audioSources = {
-  "track-001": audioFile("my-first-song.mp3"),
-};
-```
+🏗️ Project Structure
 
-Tracks without an entry are treated as **unavailable**. Use only royalty-free, public-domain or your own music.
-
-## Project structure
-
-```
+```text
 src/
-├── app/            Next.js App Router (layout, routes, globals.css)
-├── components/     ui (primitives), shared, layout (shell, sidebar, header, mobile nav), providers
-├── features/       player, music-library, playlists, search, albums, artists, queue, favorites, recommendations
-├── constants/      brand, motion tokens (JS), audio config
-├── hooks/  lib/  services/  stores/  types/  utils/
-├── mocks/          mock datasets + audio-sources.ts
-└── styles/         tokens.css (design tokens) + theme.css (Tailwind mapping)
+├── app/             # Next.js App Router
+├── components/      # UI primitives, shared components & layout
+├── features/        # Feature-based application modules
+│   ├── player/
+│   ├── music-library/
+│   ├── playlists/
+│   ├── search/
+│   ├── albums/
+│   ├── artists/
+│   ├── queue/
+│   ├── favorites/
+│   └── recommendations/
+├── constants/       # Brand, motion & audio configuration
+├── hooks/           # Custom React hooks
+├── lib/             # Shared libraries
+├── services/        # Application services
+├── stores/          # State management
+├── types/           # TypeScript definitions
+├── utils/           # Utility functions
+├── mocks/           # Mock datasets & audio sources
+└── styles/          # Design tokens & theme configuration
 ```
 
-## Design system
+⚡ Performance & Accessibility
 
-- Tokens: `src/styles/tokens.css` (dark default + light), mapped to Tailwind in `src/styles/theme.css`.
-- Fonts: Sora (display) and Inter (UI), self-hosted via Fontsource.
-- Components are documented in Storybook (`npm run storybook`).
-- shadcn/ui is configured (`components.json`), so `npx shadcn@latest add <component>` works. Existing components in `src/components/ui` were customized, so avoid overwriting them.
-=======
-# Music-Player
->>>>>>> 30852129ce90d50beb15868d7e8952b34d9edff9
+- Lazy loading for heavy UI components.
+- Code splitting for the expanded player and playlist form.
+- Reduced-motion preferences respected throughout the interface.
+- Accessible keyboard navigation.
+- Contrast auditing for design tokens.
+- Storage utilities designed to handle browser storage failures safely.
+- Page-level error boundaries and graceful fallback states.
+
+
+ 🧪 Testing & Development
+
+The project includes a dedicated development workflow with:
+
+- Vitest for unit and component testing.
+- Playwright for browser-based end-to-end testing.
+- Storybook for isolated component development.
+- Husky for Git hook automation.
+- ESLint and Prettier for code consistency.
+
+ 💜 Acknowledgements
+
+Built with passion for music, thoughtful design, and modern frontend engineering.
+
+---
+
+<p align="center">
+  <strong>MELO — Your Music. Your Mood. Your VYBE.</strong>
+  <br />
+  <sub>Made with ♥ and a lot of good music.</sub>
+</p>
